@@ -1,5 +1,5 @@
 import Head from 'next/head';
-
+import useSWR from 'swr';
 import Layout from '@components/Layout';
 import Section from '@components/Section';
 import Container from '@components/Container';
@@ -8,9 +8,17 @@ import Button from '@components/Button';
 
 import styles from '@styles/Home.module.scss';
 
-const DEFAULT_CENTER = [38.907132, -77.036546]
+const DEFAULT_CENTER = [-13.010147674363914, -38.531972185549]
+
+const fetcher = (url) => fetch(url).then((res) => res.json());
 
 export default function Home() {
+
+  const { data } = useSWR(
+  'https://firebasestorage.googleapis.com/v0/b/santa-tracker-firebase.appspot.com/o/route%2Fsanta_en.json?alt=media&2018b',
+  fetcher
+);
+
   return (
     <Layout>
       <Head>
